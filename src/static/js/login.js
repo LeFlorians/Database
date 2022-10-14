@@ -17,7 +17,7 @@ function _check_login(body) {
         localStorage.uname = $("login_uname").value
         // logged in, can now switch page
         // set user_id globally and switch page
-        window.user_id = body.user_id
+        localStorage.user_id = body.user_id
         // reload page from server
         window.location.reload(true)
     }

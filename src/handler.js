@@ -31,6 +31,55 @@ module.exports = (app, db) => {
             }
         })
     })
+    
+    app.post(`${DB}/load_products`, (req, res) => {
+        console.log(`load some products: ${JSON.stringify(req.body)}`)
+        const body = req.body
+
+        db.get(`SELECT * FROM Articles ORDER BY clicks DESC LIMIT 30`, 
+                (err, row) => {
+            if(err) {
+                console.log("Error: " + err)
+                respond(res, { error: "invalid request" })
+                return
+            }
+
+            if(row) {
+                // foreward the result
+                respond(res, row)
+            } else {
+                // no results? send empty response
+                respond(res, {})
+            }
+        })
+    })
+
+    app.post(`${DB}/add_product`, (req, res) => {
+        console.log(`Add product request: ${JSON.stringify(req.body)}`)
+        const body = req.body
+        body.price = Math.floor(parseFloat(body.price) * 20) / 20 
+        console.log(body.price)
+
+        if(!req.session || !req.session.user_id || !body.user_id 
+                || req.session.user_id != body.user_id
+                || !body.description || isNaN(body.price) || !body.description) {
+            respond(res, { error: "invalid request" })
+            return
+        }
+
+        db.run(`
+        INSERT INTO Articles (name, description, vendor_id, price) VALUES (?, ?, ?, ?);
+        `, [body.name, body.description, req.session.user_id, body.price], (err) => {
+            if(err){
+                respond(res, { error: "invalid request" })
+                console.log(err)
+                return
+            } 
+            console.log(`Inserted article with name ${body.name} into Articles table`)
+            respond(res, { article_added: true })
+        })
+
+    })
 
     app.post(`${DB}/get_store`, (req, res) => {
         console.log(`Store request: ${JSON.stringify(req.body)}`)
@@ -41,7 +90,7 @@ module.exports = (app, db) => {
             return
         }
 
-        db.get(`SELECT vendor_id, description, website FROM Vendors
+        db.get(`SELECT username, vendor_id, description, website FROM Vendors
                 JOIN Users ON user_id = owner_id
                 WHERE Users.username = ?;`,
                 [body.uname], (err, row) => {

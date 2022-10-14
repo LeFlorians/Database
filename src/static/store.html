@@ -10,26 +10,48 @@
     <link rel="stylesheet" href="/style.css">
 
     <script src="base.js"></script>
-    <script src="store.js"></script>
 
     <h1>Welcome to <i>something not</i> Amazon!</h1>
     <h2>buy things...</h2>
 
-    <div id="buttons">
-        <button onclick="get_store()">Open your store</button>
-    </div>
+    <div id="store">
+     
+        <div id="prepare_store" style="display: none;">
+            <p>You don't have a store :(<br>Want to open your own store?<br>Enter your details below and get started!</p>
+            <button onclick="$('store').style.display = 'none'">Ignore</button>
+            <label for="store_website">Your website</label>
+            <input type="text" id="store_website">
+            <label for="store_description">Store Description</label>
+            <input type="text" id="store_description">
+            <button onclick="open_store()" style="margin-top: 10px;">Create store</button>
+        </div>
 
-    <div id="prepare_store" style="visibility: hidden;">
-        <p>You don't have a store :(<br>Want to open your own store?<br>Enter your details below and get started!</p>
-        <button id="store_abort_button" onclick="$('prepare_store').style.visibility = 'hidden'">Abort</button>
-        <label for="store_website">Your website</label>
-        <input type="text" id="store_website">
-        <label for="store_description">Store Description</label>
-        <input type="text" id="store_description">
-        <button onclick="open_store()" style="margin-top: 10px;">Create store</button>
+        <div id="show_store">
+            <h2 id="s_vendor">Loading...</h2>
+            <a id="s_website" href=""></a> 
+            <p id="s_description" style="width=40%;"></p>
+            <button id="add_product_button" style="display: none;"
+                    onclick="$('add_product').style.display = 'flex'">
+                Add product
+            </button>
+        </div>
     </div>
-
-    <div id="products"></div>
     
+    <div id="add_product" style="display: none;">
+        <p>Add an Article to your Store Page.</p>
+        <button onclick="$('add_product').style.display = 'none'">Abort</button>
+        <label for="product_name">Article Name</label>
+        <input type="text" id="product_name">
+        <label for="product_desc">Article Description</label>
+        <input type="text" id="product_desc">
+        <label for="product_price">Pricing (CHF)</label>
+        <input type="number" id="product_price">
+       <button onclick="add_product()" style="margin-top: 10px;">Add article</button>
+    </div>
+
+    <h2>View available products here:</h2>
+    <div class="products" id="products"></div>
+
+    <script src="store.js"></script>
 </body>
 </html>
