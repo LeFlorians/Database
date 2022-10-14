@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Not Amazon</title>
+</head>
+<body>
+    <link rel="stylesheet" href="/style.css">
+
+    <script src="base.js"></script>
+    <script src="store.js"></script>
+
+    <h1>Welcome to <i>something not</i> Amazon!</h1>
+    <h2>buy things...</h2>
+
+    <div id="buttons">
+        <button onclick="get_store()">Open your store</button>
+    </div>
+
+    <div id="prepare_store" style="visibility: hidden;">
+        <p>You don't have a store :(<br>Want to open your own store?<br>Enter your details below and get started!</p>
+        <button id="store_abort_button" onclick="$('prepare_store').style.visibility = 'hidden'">Abort</button>
+        <label for="store_website">Your website</label>
+        <input type="text" id="store_website">
+        <label for="store_description">Store Description</label>
+        <input type="text" id="store_description">
+        <button onclick="open_store()" style="margin-top: 10px;">Create store</button>
+    </div>
+
+    <div id="products"></div>
+    
+</body>
+</html>

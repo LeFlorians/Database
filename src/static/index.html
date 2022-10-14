@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon but better</title>
+</head>
+<body>
+    <link rel="stylesheet" href="/style.css">
+
+    <script src="base.js"></script>
+    <script src="login.js"></script>
+
+    <div id="login_form">
+        <p id="login_attract">
+            Unlimited things to <i>buy</i>
+        </p>
+
+        <label for="login_uname">Username</label>
+        <input type="text" id="login_uname">
+        <label for="login_pwd">Password</label>
+        <input type="password" id="login_pwd">
+        <button onclick="login()" style="margin-top: 10px;">Log In</button>
+    </div>
+
+    <div id="register_form" style="visibility: hidden;">
+        <p>Account was not found. Do you want to register a new account?</p>
+        <button onclick="register()">Register Account</button>
+        <button onclick="go_back()">Go back</button>
+    </div>
+    
+</body>
+</html>
